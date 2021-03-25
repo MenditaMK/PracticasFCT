@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transparent"
+    tools:context=".DetailsFragment">
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name: " />
+
+    <TextView
+        android:id="@+id/name"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Height: " />
+
+    <TextView
+        android:id="@+id/height"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mass: " />
+
+    <TextView
+        android:id="@+id/mass"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hair color: " />
+
+    <TextView
+        android:id="@+id/hair_color"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skin color: " />
+
+    <TextView
+        android:id="@+id/skin_color"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eye color: " />
+
+    <TextView
+        android:id="@+id/eye_color"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Birth year: " />
+
+    <TextView
+        android:id="@+id/birth_year"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        style="@style/property"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gender: " />
+
+    <TextView
+        android:id="@+id/gender"
+        style="@style/element"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
