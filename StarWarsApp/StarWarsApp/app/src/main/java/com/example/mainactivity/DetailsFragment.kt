@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.mainactivity.Personaje
 import com.example.mainactivity.R
 import com.example.mainactivity.VMMainActivity
+import com.example.mainactivity.databinding.FragmentDetailsBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,14 +28,8 @@ class DetailsFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var viewModel : VMMainActivity
-    private lateinit var name : TextView
-    private lateinit var height : TextView
-    private lateinit var mass : TextView
-    private lateinit var hairColor : TextView
-    private lateinit var skinColor : TextView
-    private lateinit var eyeColor : TextView
-    private lateinit var birthYear : TextView
-    private lateinit var gender : TextView
+    private var _binding : FragmentDetailsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +44,9 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_details, container, false)
+        _binding = FragmentDetailsBinding.inflate(inflater, container,false)
+        val view = binding.root
+        return view
     }
 
     companion object {
@@ -74,27 +71,19 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        name = view.findViewById(R.id.name)
-        height = view.findViewById(R.id.height)
-        mass = view.findViewById(R.id.mass)
-        hairColor = view.findViewById(R.id.hair_color)
-        skinColor = view.findViewById(R.id.skin_color)
-        eyeColor = view.findViewById(R.id.eye_color)
-        birthYear = view.findViewById(R.id.birth_year)
-        gender = view.findViewById(R.id.gender)
         viewModel = ViewModelProvider(requireActivity()).get(VMMainActivity::class.java)
 
         viewModel.position.observe(requireActivity(), Observer {
             var listado : List<Personaje>? = viewModel.listadoPersonajes.value
             var position : Int? = viewModel.position.value
-            name.text = position?.let { it1 -> listado?.get(it1)?.name.toString() }
-            height.text = position?.let { it1 -> listado?.get(it1)?.height.toString() }
-            mass.text = position?.let { it1 -> listado?.get(it1)?.mass.toString() }
-            hairColor.text = position?.let { it1 -> listado?.get(it1)?.hairColor.toString() }
-            skinColor.text = position?.let { it1 -> listado?.get(it1)?.skinColor.toString() }
-            eyeColor.text = position?.let { it1 -> listado?.get(it1)?.eyeColor.toString() }
-            birthYear.text = position?.let { it1 -> listado?.get(it1)?.birthYear.toString() }
-            gender.text = position?.let { it1 -> listado?.get(it1)?.gender.toString() }
+            binding.name.text = position?.let { it1 -> listado?.get(it1)?.name.toString() }
+            binding.height.text = position?.let { it1 -> listado?.get(it1)?.height.toString() }
+            binding.mass.text = position?.let { it1 -> listado?.get(it1)?.mass.toString() }
+            binding.hairColor.text = position?.let { it1 -> listado?.get(it1)?.hairColor.toString() }
+            binding.skinColor.text = position?.let { it1 -> listado?.get(it1)?.skinColor.toString() }
+            binding.eyeColor.text = position?.let { it1 -> listado?.get(it1)?.eyeColor.toString() }
+            binding.birthYear.text = position?.let { it1 -> listado?.get(it1)?.birthYear.toString() }
+            binding.gender.text = position?.let { it1 -> listado?.get(it1)?.gender.toString() }
         })
     }
 }

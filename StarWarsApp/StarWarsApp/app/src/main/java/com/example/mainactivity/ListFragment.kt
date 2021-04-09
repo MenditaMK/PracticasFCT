@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mainactivity.databinding.FragmentListBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,12 +35,11 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
     private var param1: String? = null
     private var param2: String? = null
     lateinit var personajeService : PersonajeService
-    lateinit var buttonNext : Button
-    lateinit var buttonBack : Button
-    lateinit var recyclerView : RecyclerView
     lateinit var listadoPersonajes : MutableList<Personaje>
     lateinit var adapter : PersonajeAdapter
     lateinit var viewModel : VMMainActivity
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
     var numPag : Int = 1
 
 
@@ -55,19 +56,18 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list, container, false)
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        buttonNext = view.findViewById(R.id.btnSiguiente)
-        buttonBack = view.findViewById(R.id.btnAnterior)
-        recyclerView = view.findViewById(R.id.recyclerView)
         viewModel = ViewModelProvider(requireActivity()).get(VMMainActivity::class.java)
         personajeService = getRetrofit().create(PersonajeService::class.java)
 
-        buttonNext.setOnClickListener(this)
-        buttonBack.setOnClickListener(this)
+        binding.btnSiguiente.setOnClickListener(this)
+        binding.btnAnterior.setOnClickListener(this)
         listadoPersonajes = mutableListOf<Personaje>()
         initRecyclerView()
 
@@ -134,8 +134,8 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
      */
     private fun initRecyclerView(){
         adapter = PersonajeAdapter(listadoPersonajes, this)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
     }
 
     /* Interfaz
@@ -151,8 +151,8 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
             activity?.runOnUiThread{
                 if(call.isSuccessful){
                     val result : PersonajeResponse? = call.body()
-                    if(result?.next == null) buttonNext.visibility = View.GONE
-                    if(result?.previous == null) buttonBack.visibility = View.GONE
+                    if(result?.next == null) binding.btnSiguiente.visibility = View.GONE
+                    if(result?.previous == null) binding.btnAnterior.visibility = View.GONE
                     val listado = result?.results ?: emptyList()
                     listadoPersonajes.clear()
                     listadoPersonajes.addAll(listado)
@@ -173,11 +173,11 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
     override fun onClick(v: View?) {
         if (v != null) {
             if(v.id == R.id.btnSiguiente){
-                if(buttonBack.visibility == View.GONE) buttonBack.visibility = View.VISIBLE
+                if(binding.btnAnterior.visibility == View.GONE) binding.btnSiguiente.visibility = View.VISIBLE
                 numPag++
                 realizarLlamada(numPag)
             } else if(v.id == R.id.btnAnterior){
-                if(buttonNext.visibility == View.GONE) buttonNext.visibility = View.VISIBLE
+                if(binding.btnSiguiente.visibility == View.GONE) binding.btnAnterior.visibility = View.VISIBLE
                 numPag--
                 realizarLlamada(numPag)
             }
