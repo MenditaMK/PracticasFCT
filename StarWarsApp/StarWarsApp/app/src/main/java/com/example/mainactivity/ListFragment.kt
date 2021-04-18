@@ -173,11 +173,11 @@ class ListFragment : Fragment(), View.OnClickListener, PersonajeAdapter.OnItemCl
     override fun onClick(v: View?) {
         if (v != null) {
             if(v.id == R.id.btnSiguiente){
-                if(binding.btnAnterior.visibility == View.GONE) binding.btnSiguiente.visibility = View.VISIBLE
+                if(binding.btnAnterior.visibility == View.GONE) binding.btnAnterior.visibility = View.VISIBLE
                 numPag++
                 realizarLlamada(numPag)
             } else if(v.id == R.id.btnAnterior){
-                if(binding.btnSiguiente.visibility == View.GONE) binding.btnAnterior.visibility = View.VISIBLE
+                if(binding.btnSiguiente.visibility == View.GONE) binding.btnSiguiente.visibility = View.VISIBLE
                 numPag--
                 realizarLlamada(numPag)
             }
